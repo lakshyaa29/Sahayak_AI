@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: sahayak_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sahayak_db
+      POSTGRES_USER: sahayak_user
+      POSTGRES_PASSWORD: sahayak_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - sahayak_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sahayak_user -d sahayak_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sahayak_backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://sahayak_user:sahayak_password@db:5432/sahayak_db
+      - APP_ENV=production
+      - API_V1_PREFIX=/api/v1
+      - CORS_ORIGINS=["http://localhost:3000","http://127.0.0.1:3000"]
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sahayak_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+      - NEXT_PUBLIC_APP_ENV=production
+    ports:
+      - "3000:3000"
+
+volumes:
+  sahayak_pgdata:
+    name: sahayak_pgdata

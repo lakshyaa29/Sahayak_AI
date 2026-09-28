@@ -1,0 +1,219 @@
+@import "leaflet/dist/leaflet.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ==========================================================================
+     CIVIC FIELD GUIDE DESIGN SYSTEM TOKENS
+     ========================================================================== */
+
+  /* Fonts */
+  --font-noto-sans: "Noto Sans", system-ui, -apple-system, sans-serif;
+  --font-noto-devanagari: "Noto Sans Devanagari", system-ui, -apple-system, sans-serif;
+
+  /* 1. Paper and surfaces */
+  --color-paper-50: #FBF8F1;
+  --color-paper-100: #F5F1E8;
+  --color-paper-200: #E9E2D3;
+  --color-surface-primary: #F5F1E8;
+  --color-surface-raised: #FFFDF8;
+  --color-surface-muted: #EDE7DA;
+  --color-surface-subtle: #F0ECE4;
+
+  /* 2. Navy ink */
+  --color-ink-900: #17233C;
+  --color-ink-800: #22314F;
+  --color-ink-700: #344461;
+  --color-ink-600: #536078;
+  --color-ink-500: #6B7589;
+  --color-text-primary: #17233C;
+  --color-text-secondary: #536078;
+  --color-text-disabled: #747C8B;
+
+  /* 3. Burnt saffron */
+  --color-saffron-700: #9D421B;
+  --color-saffron-600: #B84F20;
+  --color-saffron-500: #C65D27;
+  --color-saffron-100: #F5E1D4;
+  --color-accent-primary: #C65D27;
+  --color-accent-hover: #A9471E;
+  --color-accent-active: #8C3B19;
+
+  /* 4. Functional blue */
+  --color-blue-700: #0F4C81;
+  --color-blue-600: #155E9A;
+  --color-blue-100: #DCEAF5;
+  --color-link-default: #155E9A;
+  --color-link-hover: #0F4C81;
+
+  /* 5. Success */
+  --color-green-700: #1F563B;
+  --color-green-600: #276749;
+  --color-green-100: #DAEBDD;
+
+  /* 6. Warning */
+  --color-amber-700: #7B5000;
+  --color-amber-500: #B7791F;
+  --color-amber-100: #F7E9C8;
+
+  /* 7. Error */
+  --color-red-700: #8B2525;
+  --color-red-600: #A83333;
+  --color-red-100: #F4DADA;
+
+  /* 8. Borders */
+  --color-border-default: #A9A394;
+  --color-border-strong: #536078;
+  --color-border-subtle: #D8D0C1;
+  --color-border-error: #A83333;
+
+  /* 9. Focus */
+  --color-focus: #F2B84B;
+  --color-focus-contrast: #17233C;
+
+  /* ==========================================================================
+     SEMANTIC ALIASES & COMPATIBILITY MAPPINGS
+     ========================================================================== */
+  --background: var(--color-surface-primary);
+  --foreground: var(--color-text-primary);
+  --surface: var(--color-surface-raised);
+  --surface-muted: var(--color-surface-muted);
+  --surface-subtle: var(--color-surface-subtle);
+
+  --primary: var(--color-accent-primary);
+  --primary-hover: var(--color-accent-hover);
+  --primary-foreground: #FFFFFF;
+  --primary-muted: var(--color-saffron-100);
+  --primary-subtle: var(--color-paper-50);
+
+  --secondary: var(--color-ink-800);
+  --secondary-hover: var(--color-ink-900);
+  --secondary-foreground: #FFFFFF;
+  --secondary-muted: var(--color-surface-muted);
+  --secondary-subtle: var(--color-paper-50);
+
+  --muted-foreground: var(--color-text-secondary);
+  --subtle-foreground: var(--color-ink-500);
+
+  --border: var(--color-border-subtle);
+  --border-subtle: var(--color-border-subtle);
+  --input-border: var(--color-border-default);
+  --input-focus: var(--color-ink-900);
+  --focus-ring: var(--color-focus);
+
+  --success: var(--color-green-600);
+  --success-foreground: #FFFFFF;
+  --success-muted: var(--color-green-100);
+
+  --warning: var(--color-amber-500);
+  --warning-foreground: #FFFFFF;
+  --warning-muted: var(--color-amber-100);
+
+  --destructive: var(--color-red-600);
+  --destructive-foreground: #FFFFFF;
+  --destructive-muted: var(--color-red-100);
+
+  /* Shadows: Deprecated floating shadows, replaced with none and restrained overlay shadow */
+  --shadow-none: none;
+  --shadow-card: none;
+  --shadow-hover: none;
+  --shadow-low: 0 1px 3px rgba(23, 35, 60, 0.08);
+  --shadow-floating: 0 4px 12px rgba(23, 35, 60, 0.12);
+
+  /* Radii: Restrained 2-4px corners for document/civic feel */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-input: 4px;
+  --radius-card: 4px;
+  --radius-dialog: 4px;
+  --radius-pill: 9999px;
+
+  /* Layout Widths */
+  --max-w-narrow: 42rem;
+  --max-w-content: 68rem;
+  --max-w-wide: 80rem;
+  --max-w-form: 45rem;
+
+  /* Motion */
+  --duration-fast: 100ms;
+  --duration-normal: 160ms;
+  --duration-base: 160ms;
+  --duration-slow: 200ms;
+  --easing-standard: cubic-bezier(0, 0, 0.2, 1);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-noto-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+/* Ensure comfortable Devanagari line height without character clipping */
+:lang(hi), [lang="hi"] {
+  font-family: var(--font-noto-devanagari), var(--font-noto-sans), system-ui, sans-serif;
+  line-height: 1.65;
+}
+
+/* Tabular figures for financial alignment */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* High-visibility accessible focus ring: 3px saffron ring with 2px offset */
+*:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference: eliminate ornamental transitions */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Skip to main content link for screen readers and keyboard users */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background: var(--color-ink-900);
+  color: #FFFFFF;
+  padding: 0.75rem 1.25rem;
+  z-index: 100;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-focus);
+  transition: top var(--duration-fast) ease-out;
+}
+
+.skip-to-content:focus {
+  top: 1rem;
+}
+
+/* Print styles for Next Steps / Summary page */
+@media print {
+  header, footer, .no-print, button {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .card, div {
+    box-shadow: none !important;
+    border-color: #A9A394 !important;
+  }
+}
