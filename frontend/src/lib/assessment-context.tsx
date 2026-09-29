@@ -231,6 +231,7 @@ export function AssessmentProvider({ children }: { children: ReactNode }) {
         admissionStatus: "confirmed",
         studyLocation: "india",
         institutionName: "",
+        institutionAccredited: true,
         courseDurationMonths: undefined,
         totalCost: newPurpose === "business" ? 120000 : 250000,
         borrowingAmount: undefined,

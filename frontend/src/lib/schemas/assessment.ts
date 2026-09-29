@@ -69,6 +69,7 @@ export const Step2EducationSchema = z.object({
     .refine((val) => val === undefined || isNaN(val) || (val > 0 && val <= 120), {
       message: "Course duration must be between 1 and 120 months.",
     }),
+  institutionAccredited: z.boolean().default(true),
 });
 
 // Step 3: Estimated Cost
@@ -135,6 +136,7 @@ export interface AssessmentFormValues {
   admissionStatus?: AdmissionStatusType;
   studyLocation?: StudyLocationType;
   institutionName?: string;
+  institutionAccredited?: boolean;
   courseDurationMonths?: number;
 
   // Shared financials & location
@@ -160,6 +162,7 @@ export const DEFAULT_ASSESSMENT_VALUES: AssessmentFormValues = {
   admissionStatus: "confirmed",
   studyLocation: "india",
   institutionName: "",
+  institutionAccredited: true,
   courseDurationMonths: undefined,
   totalCost: 120000,
   projectCost: 120000,
@@ -199,6 +202,8 @@ export interface EducationAssessmentProfile extends BaseAssessmentProfile {
   admissionStatus: AdmissionStatusType;
   studyLocation: StudyLocationType;
   institutionName?: string;
+  institutionAccredited?: boolean;
+  institution_accredited?: boolean;
   courseDurationMonths?: number;
 }
 
@@ -244,6 +249,8 @@ export function normalizeAssessmentProfile(
       admissionStatus: values.admissionStatus || "confirmed",
       studyLocation: values.studyLocation || "india",
       institutionName: values.institutionName ? values.institutionName.trim() : undefined,
+      institutionAccredited: values.institutionAccredited !== undefined ? values.institutionAccredited : true,
+      institution_accredited: values.institutionAccredited !== undefined ? values.institutionAccredited : true,
       courseDurationMonths:
         values.courseDurationMonths && !isNaN(values.courseDurationMonths) && values.courseDurationMonths > 0
           ? values.courseDurationMonths

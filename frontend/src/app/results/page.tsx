@@ -169,7 +169,11 @@ export default function ResultsPage() {
             <span>{resT.secondaryReviewAnswers}</span>
           </Link>
         </div>
-        <NeedsInfoView schemes={needsInfoSchemes} />
+        <NeedsInfoView
+          schemes={needsInfoSchemes}
+          district={profile.district}
+          state={profile.state}
+        />
       </main>
     );
   }

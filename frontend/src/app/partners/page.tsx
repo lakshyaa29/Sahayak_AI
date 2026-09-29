@@ -68,7 +68,9 @@ function PartnersContent() {
   // Scheme Context from URL or Assessment
   const paramScheme = searchParams.get("scheme");
   const selectedSchemeCode =
-    paramScheme || evaluationResult?.primary_scheme?.code || "SC_MICRO_FINANCE";
+    paramScheme ||
+    evaluationResult?.primary_scheme?.code ||
+    (values.purpose === "education" ? "SC_EDUCATION_LOAN" : "SC_MICRO_FINANCE");
   const schemeName =
     evaluationResult?.primary_scheme?.name_en ||
     (selectedSchemeCode === "SC_TERM_LOAN"
@@ -131,15 +133,16 @@ function PartnersContent() {
       const res = await searchPartners(payload);
       if (res.data) {
         setSearchResponse(res.data);
-        if (res.data.eligible_partners.length > 0 && !selectedPartnerId) {
-          setSelectedPartnerId(res.data.eligible_partners[0].id);
+        const topPartnerId = res.data.eligible_partners[0]?.id;
+        if (topPartnerId) {
+          setSelectedPartnerId((prev) => prev || topPartnerId);
         }
       } else {
         setApiError(res.error || "Unable to retrieve Channel Partners.");
       }
       setIsLoading(false);
     },
-    [selectedSchemeCode, selectedPartnerId]
+    [selectedSchemeCode]
   );
 
   // Initial and reactive search

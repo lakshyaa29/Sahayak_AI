@@ -10,9 +10,11 @@ interface EducationCourseQuestionProps {
   courseName: string;
   institutionName?: string;
   courseDurationMonths?: number;
+  institutionAccredited?: boolean;
   onChangeCourseName: (val: string) => void;
   onChangeInstitutionName: (val: string) => void;
   onChangeCourseDuration: (val: number | undefined) => void;
+  onChangeInstitutionAccredited?: (val: boolean) => void;
   error?: string;
 }
 
@@ -20,9 +22,11 @@ export function EducationCourseQuestion({
   courseName,
   institutionName = "",
   courseDurationMonths,
+  institutionAccredited = true,
   onChangeCourseName,
   onChangeInstitutionName,
   onChangeCourseDuration,
+  onChangeInstitutionAccredited,
   error,
 }: EducationCourseQuestionProps) {
   const { t } = useLanguage();
@@ -79,9 +83,31 @@ export function EducationCourseQuestion({
             placeholder={qT.durationPlaceholder}
           />
         </div>
+
+        {/* Institution Accreditation Checkbox */}
+        <div className="pt-2">
+          <label className="flex items-start gap-3 p-3.5 rounded-sm border border-paper-200 bg-paper-50 hover:bg-paper-100 transition-colors cursor-pointer select-none">
+            <input
+              id="institutionAccredited"
+              type="checkbox"
+              checked={institutionAccredited}
+              onChange={(e) => onChangeInstitutionAccredited?.(e.target.checked)}
+              className="mt-0.5 h-4 w-4 rounded-xs border-border text-accent focus:ring-focus"
+            />
+            <div className="space-y-1">
+              <span className="block text-xs font-semibold text-ink-900 leading-snug">
+                {qT.accreditationCheckbox}
+              </span>
+              <span className="block text-[11px] text-ink-600 leading-relaxed">
+                {qT.accreditationHelper}
+              </span>
+            </div>
+          </label>
+        </div>
       </div>
 
       <WhyWeAsk explanation={qT.whyWeAsk} />
     </div>
   );
 }
+

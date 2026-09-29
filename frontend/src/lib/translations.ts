@@ -184,6 +184,9 @@ export interface AssessmentTranslations {
         institutionPlaceholder: string;
         durationLabel: string;
         durationPlaceholder: string;
+        accreditationLabel: string;
+        accreditationCheckbox: string;
+        accreditationHelper: string;
       };
       educationLevel: {
         heading: string;
@@ -1081,6 +1084,9 @@ export const translations: Record<Language, TranslationDictionary> = {
             institutionPlaceholder: "e.g., Government Polytechnic Pune, IIT Delhi",
             durationLabel: "Expected course duration in months (Optional)",
             durationPlaceholder: "e.g., 36 for 3-year degree, 48 for 4-year degree",
+            accreditationLabel: "Institution recognition status",
+            accreditationCheckbox: "My institution or college is recognized / accredited by UGC, AICTE, State Board, or relevant regulatory authority",
+            accreditationHelper: "NSFDC lending policies require institutional accreditation for loan sanction. Final verification is conducted by the Channel Partner.",
           },
           educationLevel: {
             heading: "What level of study is this course?",
@@ -1850,6 +1856,9 @@ export const translations: Record<Language, TranslationDictionary> = {
             institutionPlaceholder: "उदा. राजकीय पॉलिटेक्निक, दिल्ली विश्वविद्यालय",
             durationLabel: "अपेक्षित अवधि महीनों में (वैकल्पिक)",
             durationPlaceholder: "उदा. 36 (3 वर्ष के लिए) या 48 (4 वर्ष के लिए)",
+            accreditationLabel: "संस्थान मान्यता स्थिति",
+            accreditationCheckbox: "मेरा संस्थान या कॉलेज यूजीसी, एआईसीटीई, राज्य बोर्ड या प्रासंगिक नियामक प्राधिकरण द्वारा मान्यता प्राप्त है",
+            accreditationHelper: "ऋण स्वीकृति के लिए NSFDC नीतियों के तहत संस्थान की मान्यता आवश्यक है। अंतिम सत्यापन चैनल पार्टनर द्वारा किया जाता है।",
           },
           educationLevel: {
             heading: "यह किस स्तर का पाठ्यक्रम है?",

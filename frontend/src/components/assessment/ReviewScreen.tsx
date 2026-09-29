@@ -107,6 +107,11 @@ export function ReviewScreen({
               {values.courseDurationMonths} months
             </div>
           )}
+          <div className="text-[11px] font-medium text-emerald-700 bg-emerald-50 inline-block px-1.5 py-0.5 rounded-xs mt-1 border border-emerald-200">
+            {values.institutionAccredited !== false
+              ? (guidedT.questions.educationCourse.accreditationLabel + ": " + (values.institutionName ? "Recognized" : "Accredited"))
+              : "Pending accreditation confirmation"}
+          </div>
         </div>
       ),
     });

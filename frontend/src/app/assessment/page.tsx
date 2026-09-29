@@ -194,6 +194,7 @@ function AssessmentInner() {
           studyLocation: values.studyLocation || "india",
           institutionName: values.institutionName,
           courseDurationMonths: values.courseDurationMonths,
+          institutionAccredited: values.institutionAccredited !== undefined ? values.institutionAccredited : true,
         });
         if (!res.success) {
           res.error.issues.forEach((issue) => {
@@ -459,6 +460,7 @@ function AssessmentInner() {
             courseName={values.courseName}
             institutionName={values.institutionName}
             courseDurationMonths={values.courseDurationMonths}
+            institutionAccredited={values.institutionAccredited !== undefined ? values.institutionAccredited : true}
             onChangeCourseName={(val) => {
               updateValues({ courseName: val });
               setErrors((prev) => ({ ...prev, courseName: "" }));
@@ -469,6 +471,9 @@ function AssessmentInner() {
             onChangeCourseDuration={(val) => {
               updateValues({ courseDurationMonths: val });
               setErrors((prev) => ({ ...prev, courseDurationMonths: "" }));
+            }}
+            onChangeInstitutionAccredited={(val) => {
+              updateValues({ institutionAccredited: val });
             }}
             error={errors.courseName || errors.courseDurationMonths}
           />

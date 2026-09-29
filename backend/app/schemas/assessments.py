@@ -107,6 +107,9 @@ class AssessmentEvaluateRequest(BaseModel):
             if self.institution_accredited is not None
             else self.institutionAccredited
         )
+        if accredited is None and self.purpose == "education":
+            # For preliminary guidance, affirmative educational profile self-declaration assumes recognized institution
+            accredited = True
 
         return {
             "purpose": self.purpose,
